@@ -5,7 +5,6 @@ const express   = require('express'),
   LocalStrategy = require('passport-local').Strategy,
   User = require('../models/users');
 
-
 // When user directs to '/register', render refister.handlebars.
 router.get('/register', function(req, res) {
   res.render('register');
@@ -102,7 +101,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
+// Serialize and deserialize user instances to and from the Passport session.
+// A session will be established and maintained via a cookie set in the 
+// user's browser.
 passport.serializeUser(function(user, done) {
+  // The user ID is serialized to the session.
   done(null, user.id);
 });
 
@@ -112,17 +115,22 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+// When a the form values are posted form '/login' page, if values are 
+// valid, redirect user to '/', else stay on '/users/login' page.
 router.post('/login', passport.authenticate('local', 
   {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}), 
   function(req, res) {
     res.redirect('/');
 });
 
+// When a user redirects to '/logout' page, invoke the logout() method, then
+// flash 'You are logged out' to the view, then redirect user back to
+// 'users/login' page.
 router.get('/logout', function(req, res) {
   req.logout();
   req.flash('success_msg', 'You are logged out');
-  
   res.redirect('/users/login');
 });
 
+// Export all the router methods.
 module.exports = router;
