@@ -32,6 +32,11 @@ app.use(cookieParser());
 // Set the assets folder.
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Sets Bootstrap and jQuery.
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+
 // Configure session module.
 app.use(session({
   secret: 'secret',
@@ -70,6 +75,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  res.locals.title = 'GoVoteAndPollYourself';
   res.locals.capitalize = (title) => {
     let firstName = title.split(' ')[0];
     return firstName.split('')[0].toUpperCase() + firstName.substring(1);
