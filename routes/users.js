@@ -1,0 +1,128 @@
+// Retrieve modules.
+const express   = require('express'),
+  router        = express.Router(),
+  passport      = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  User = require('../models/users');
+
+
+// When user directs to '/register', render refister.handlebars.
+router.get('/register', function(req, res) {
+  res.render('register');
+});
+
+// When user directs to '/login', redner login.handlebars.
+router.get('/login', function(req, res) {
+  res.render('login');
+});
+
+// When a post request gets posted to '/register' via the form from 
+// register.handlebars, invoke the callback function.
+router.post('/register', function(req, res) {
+  // Getting values from form and store in variables.
+  var name    = req.body.name,
+    email     = req.body.email,
+    username  = req.body.username,
+    password  = req.body.password,
+    password2 = req.body.password2;
+    
+  // Checks if form was properly filled out (validation).
+  req.checkBody('name', 'Name is required').notEmpty();
+  req.checkBody('email', 'Email is required').notEmpty();
+  req.checkBody('email', 'Email is not valid').isEmail();
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('password2', 'Passwords do not match')
+    .equals(req.body.password);
+  
+  // If form was incorrectly filled out, store the errors in 
+  // variable errors.
+  var errors = req.validationErrors();
+  
+  // If errors conists of any errors, render register.handlebars passing in
+  // the values from errors as a global variable. Else, create a new user
+  // using the form values passed in by the user. 
+  if(errors) {
+    res.render('register', {
+      errors: errors
+    });
+  } else {
+    
+    // Creates a new user using the mongoose User schema defined in 
+    // './models/users.js'.
+    var newUser = new User({
+      name: name,
+      email: email,
+      username: username,
+      password: password
+    });
+    
+    // Invokes createUser method from './models/users.js' which saves
+    // the newly created user to the mLab database.
+    User.createUser(newUser, function(err, user) {
+      if(err) throw err;
+      console.log(user);
+    });
+    
+    // After new user is created and saved to database, show a success 
+    // message via flash() method.
+    req.flash('success_msg', 'You are registered and can now login.');
+    // redirect to login.handlebars.
+    res.redirect('/users/login');
+  }
+});
+
+// Configure the Passport LocalStrategy for username/password authentication.
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    
+    // Invoke getUserByUsername function from './models/users.js'.
+    User.getUserByUsername(username, function(err, user) {
+      //If user not found, return done() method with message of 'Unknown User'.
+      if(err) throw err;
+      if(!user) {
+        return done(null, false, {message: 'Unknown user'});
+      }
+      
+      // If user found, run comparePassword() function 
+      // from './models/users.js'.
+      User.comparePassword(password, user.password, function(err, isMatch) {
+        if(err) throw err;
+        
+        // If provided password matches the hashed password, retrun done() with
+        // user passes in as parameter. Else, return done() with 
+        // 'Invalid password'.
+        if(isMatch) {
+          return done(null, user);
+        } else {
+          return done(null, false, {message: 'Invalid password'});
+        }
+      });
+    });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+router.post('/login', passport.authenticate('local', 
+  {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}), 
+  function(req, res) {
+    res.redirect('/');
+});
+
+router.get('/logout', function(req, res) {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  
+  res.redirect('/users/login');
+});
+
+module.exports = router;
