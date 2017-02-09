@@ -23,7 +23,7 @@ h1 {
 h2 { color: #E6F9AF !important; }
 
 .full {
-	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/canyon.jpg') no-repeat center center fixed;
+	background: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.22)), url('/images/travel.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,7 +36,7 @@ h2 { color: #E6F9AF !important; }
 
 .navbar-fixed-bottom {
 	background-color: #1c252f;
-	border-top: thin solid #8BBEB2;
+	border-top: thin solid #60a19a;
 }
 
 .navbar-fixed-bottom .navbar-brand {
@@ -81,14 +81,13 @@ h2 { color: #E6F9AF !important; }
 /* Content and media queries */
 
 .content {
-	background-color: rgba(37, 62, 89, 0.85);
+	background-color: rgba(37, 62, 89, 0.86);
 	background-image: url('/images/light.png');
 	border: 2px solid rgb(22, 37, 54);
 	color: #b6c292;
 	padding-bottom: 20px;
 	border-radius: 5px;
 	opacity: 0.9;
-	
 	-webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
 	-moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
 	box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
