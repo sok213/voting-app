@@ -1,5 +1,22 @@
 <h1><img src="/images/logolarge.png" alt="">{{title}}</h1>
 <h2 class="page-header">Account Login</h2>
+{{#if success_msg}}
+  <div class="success">
+      {{success_msg}}
+  </div>
+{{/if}}
+
+{{#if error_msg}}
+  <div class="error">
+      {{error_msg}}
+  </div>
+{{/if}}
+
+{{#if error}}
+  <div class="error">
+      {{error}}
+  </div>
+{{/if}}
 <form action="/users/login" method="post">
   <div class="form-group">
       <label>Username</label>

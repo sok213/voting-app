@@ -58,6 +58,17 @@ h2 { color: #E6F9AF !important; }
 	font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;
 }
 
+.success {
+	width: 200px;
+	color: rgb(119, 214, 143);
+	background-color: #1c252f;
+	border-left: 10px solid rgb(46, 190, 99);
+	padding-left: 10px;
+	margin-bottom: 5px;
+	font-size: 14px;
+	font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;
+}
+
 /* Buttons */
 
 .navbar-toggle {
