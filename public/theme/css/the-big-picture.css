@@ -47,6 +47,17 @@ h2 { color: #E6F9AF !important; }
 	color: #EDEEC0 !important;
 }
 
+.error {
+	width: 200px;
+	color: rgb(224, 79, 118);
+	background-color: #1c252f;
+	border-left: 10px solid rgb(194, 65, 65);
+	padding-left: 10px;
+	margin-bottom: 5px;
+	font-size: 14px;
+	font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;
+}
+
 /* Buttons */
 
 .navbar-toggle {
