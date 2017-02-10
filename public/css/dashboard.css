@@ -1,0 +1,22 @@
+.full {
+	background: none;
+}
+
+.fa-home {
+  margin-right: 10px;
+  color: rgba(157, 174, 193, 0.89);
+}
+
+.content {
+	background-color: rgba(24, 33, 43, 0.89);
+  background-image: none;
+	border: none;
+	color: #b6c292;
+	padding-bottom: 20px;
+	border-radius: 0px;
+	opacity: 1;
+  
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}

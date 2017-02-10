@@ -103,6 +103,7 @@ h2 { color: #E6F9AF !important; }
 	background-image: url('/images/light.png');
 	border: 2px solid rgb(22, 37, 54);
 	color: #b6c292;
+	padding-top: 1px;
 	padding-bottom: 20px;
 	border-radius: 5px;
 	opacity: 0.9;

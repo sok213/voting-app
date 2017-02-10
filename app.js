@@ -37,6 +37,9 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
+// Set module folder 
+app.use('/font-awesome', express.static(__dirname + '/node_modules/font-awesome'));
+
 // Configure session module.
 app.use(session({
   secret: 'secret',

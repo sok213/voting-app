@@ -15,7 +15,7 @@ function ensureAuthenticated(req, res, next) {
 // If user trys to redirect to '/', invoke function ensureAuthenticated, 
 // if ensureAuthenticated invokes the next() method, render index.handlebars.
 router.get('/', ensureAuthenticated, function(req, res) {
-  res.render('index');
+  res.render('dashboard');
 });
 
 // Export the router methods.
