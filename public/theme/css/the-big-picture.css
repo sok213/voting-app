@@ -84,14 +84,14 @@ h2 { color: #E6F9AF !important; }
 	background-color: #8BBEB2 !important;
 }
 
-.btn-primary {
+.btn-success {
 	color: #fff;
   background-color: #339c66;
   border-color: #155926;
 	transition: 0.1s;
 }
 
-.btn-primary:hover {
+.btn-success:hover {
 	background-color: #28774e;
 	border-color: #339c66;
 }
