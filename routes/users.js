@@ -10,9 +10,22 @@ router.get('/register', function(req, res) {
   res.render('register');
 });
 
-// When user directs to '/login', redner login.handlebars.
+// When user directs to '/login', render login.handlebars.
 router.get('/login', function(req, res) {
   res.render('login');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/users/login');
+  }
+}
+
+// Users can only direct to '/createpoll' if user is authenticated.
+router.get('/createpoll', ensureAuthenticated, function(req, res) {
+  res.render('createpoll');
 });
 
 // When a post request gets posted to '/register' via the form from 
@@ -126,7 +139,7 @@ router.post('/login', passport.authenticate('local',
 // When a user redirects to '/logout' page, invoke the logout() method, then
 // flash 'You are logged out' to the view, then redirect user back to
 // 'users/login' page.
-router.get('/logout', function(req, res) {
+router.get('/logout', ensureAuthenticated, function(req, res) {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
