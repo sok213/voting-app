@@ -1,4 +1,4 @@
-.full { background: none; }
+.full { background: url('/images/ghost-pattern.png'); }
 
 h2 {
 	font-family: 'Amatic SC', cursive;

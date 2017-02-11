@@ -73,7 +73,7 @@ router.post('/register', function(req, res) {
     // the newly created user to the mLab database.
     User.createUser(newUser, function(err, user) {
       if(err) throw err;
-      console.log(user);
+      console.log("New user registered!");
     });
     
     // After new user is created and saved to database, show a success 
