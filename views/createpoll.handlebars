@@ -6,14 +6,14 @@
   Create a new poll
 </h2>
 
-<form method="post" action='/users/mypoll'>
+<form method="post" action='/users/createpoll'>
   <div class="form-group">
    <label>Topic</label>
-   <input type="text" class="form-control" placeholder="Name your poll or provide a question." name="name">
+   <input type="text" class="form-control" placeholder="Name your poll or provide a question." name="topic">
   </div>
   <div class="form-group">
     <label>Option/s (separated by commas)</label>
-    <input type="text" class="form-control" placeholder="Add options here. Separate multiple options using commas." name="name">
+    <input type="text" class="form-control" placeholder="Add options here. Separate multiple options using commas." name="options">
   </div>
   <a href="/" class="btn btn-default"><i class="fa fa-angle-left" aria-hidden="true"></i>Return</a>
   <button type="submit" class="btn btn-success">Create poll</button>

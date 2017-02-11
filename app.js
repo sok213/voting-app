@@ -13,7 +13,8 @@ const express   = require('express'),
   flash         = require('connect-flash'),
   port          = 3000,
   // Connect to the mLab database via the mLab URI from config.js file.
-  db            = mongoose.connect(config.getDbConnectionString());
+  db            = mongoose.connect(config.getDbConnectionString()),
+  regController = require('./controllers/registerController');
 
 // Retrieve routes.
 const routes = require('./routes/index'),
@@ -89,6 +90,9 @@ app.use((req, res, next) => {
 // Set routes.
 app.use('/', routes);
 app.use('/users', users);
+
+// Set register controller.
+regController(app);
 
 // Start server.
 let server = app.listen(port, () => console.log('Listening on port: ', port));
