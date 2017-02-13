@@ -3,18 +3,19 @@ const express   = require('express'),
   router        = express.Router(),
   passport      = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  User = require('../models/users');
+  User          = require('../models/users');
 
 // When user directs to '/register', render refister.handlebars.
-router.get('/register', function(req, res) {
+router.get('/register', (req, res) => {
   res.render('register');
 });
 
 // When user directs to '/login', render login.handlebars.
-router.get('/login', function(req, res) {
+router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// Function to check to see if a user is signed in before directing.
 function ensureAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
     return next();
@@ -24,15 +25,15 @@ function ensureAuthenticated(req, res, next) {
 }
 
 // Users can only direct to '/createpoll' if user is authenticated.
-router.get('/createpoll', ensureAuthenticated, function(req, res) {
+router.get('/createpoll', ensureAuthenticated, (req, res) => {
   res.render('createpoll');
 });
 
 // When a post request gets posted to '/register' via the form from 
 // register.handlebars, invoke the callback function.
-router.post('/register', function(req, res) {
+router.post('/register', (req, res) => {
   // Getting values from form and store in variables.
-  var name    = req.body.name,
+  let name    = req.body.name,
     email     = req.body.email,
     username  = req.body.username,
     password  = req.body.password,
@@ -49,7 +50,7 @@ router.post('/register', function(req, res) {
   
   // If form was incorrectly filled out, store the errors in 
   // variable errors.
-  var errors = req.validationErrors();
+  let errors = req.validationErrors();
   
   // If errors conists of any errors, render register.handlebars passing in
   // the values from errors as a global variable. Else, create a new user
@@ -62,7 +63,7 @@ router.post('/register', function(req, res) {
     
     // Creates a new user using the mongoose User schema defined in 
     // './models/users.js'.
-    var newUser = new User({
+    let newUser = new User({
       name: name,
       email: email,
       username: username,
@@ -71,7 +72,7 @@ router.post('/register', function(req, res) {
     
     // Invokes createUser method from './models/users.js' which saves
     // the newly created user to the mLab database.
-    User.createUser(newUser, function(err, user) {
+    User.createUser(newUser, (err, user) => {
       if(err) throw err;
       console.log("New user registered!");
     });
@@ -86,10 +87,10 @@ router.post('/register', function(req, res) {
 
 // Configure the Passport LocalStrategy for username/password authentication.
 passport.use(new LocalStrategy(
-  function(username, password, done) {
+  (username, password, done) => {
     
     // Invoke getUserByUsername function from './models/users.js'.
-    User.getUserByUsername(username, function(err, user) {
+    User.getUserByUsername(username, (err, user) => {
       //If user not found, return done() method with message of 'Unknown User'.
       if(err) throw err;
       if(!user) {
@@ -98,7 +99,7 @@ passport.use(new LocalStrategy(
       
       // If user found, run comparePassword() function 
       // from './models/users.js'.
-      User.comparePassword(password, user.password, function(err, isMatch) {
+      User.comparePassword(password, user.password, (err, isMatch) => {
         if(err) throw err;
         
         // If provided password matches the hashed password, retrun done() with
@@ -117,13 +118,13 @@ passport.use(new LocalStrategy(
 // Serialize and deserialize user instances to and from the Passport session.
 // A session will be established and maintained via a cookie set in the 
 // user's browser.
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   // The user ID is serialized to the session.
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
+passport.deserializeUser((id, done) => {
+  User.getUserById(id, (err, user) => {
     done(err, user);
   });
 });
@@ -132,14 +133,14 @@ passport.deserializeUser(function(id, done) {
 // valid, redirect user to '/', else stay on '/users/login' page.
 router.post('/login', passport.authenticate('local', 
   {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}), 
-  function(req, res) {
+  (req, res) => {
     res.redirect('/');
 });
 
 // When a user redirects to '/logout' page, invoke the logout() method, then
 // flash 'You are logged out' to the view, then redirect user back to
 // 'users/login' page.
-router.get('/logout', ensureAuthenticated, function(req, res) {
+router.get('/logout', ensureAuthenticated, (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');

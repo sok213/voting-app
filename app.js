@@ -13,12 +13,12 @@ const express   = require('express'),
   flash         = require('connect-flash'),
   port          = 3000,
   // Connect to the mLab database via the mLab URI from config.js file.
-  db            = mongoose.connect(config.getDbConnectionString()),
-  regController = require('./controllers/registerController');
+  db            = mongoose.connect(config.getDbConnectionString());
 
 // Retrieve routes.
 const routes = require('./routes/index'),
-  users      = require('./routes/users');
+  users      = require('./routes/users'),
+  poll       = require('./routes/poll');
 
 // Set views and view engine to HandleBars.
 app.set('views', path.join(__dirname, 'views'));
@@ -39,7 +39,8 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // Set module folder 
-app.use('/font-awesome', express.static(__dirname + '/node_modules/font-awesome'));
+app.use('/font-awesome', express.static(__dirname + 
+  '/node_modules/font-awesome'));
 
 // Configure session module.
 app.use(session({
@@ -90,9 +91,7 @@ app.use((req, res, next) => {
 // Set routes.
 app.use('/', routes);
 app.use('/users', users);
-
-// Set register controller.
-regController(app);
+app.use('/users', poll);
 
 // Start server.
 let server = app.listen(port, () => console.log('Listening on port: ', port));

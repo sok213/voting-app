@@ -6,7 +6,15 @@
   Create a new poll
 </h2>
 
-<form method="post" action='/users/createpoll'>
+{{#if errors}}
+  {{#each errors}}
+    <div class="error">
+      {{msg}}
+    </div>
+  {{/each}}
+{{/if}}
+
+<form method="post" action="/users/createpoll">
   <div class="form-group">
    <label>Topic</label>
    <input type="text" class="form-control" placeholder="Name your poll or provide a question." name="topic">
