@@ -24,7 +24,8 @@ router.post('/createpoll', (req, res) => {
   } else {
     let newPoll = new Poll({
       topic,
-      options
+      options,
+      creator: res.locals.user.username
     });
     
     Poll.createPoll(newPoll, (err, poll) => {
