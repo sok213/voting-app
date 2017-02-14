@@ -58,38 +58,34 @@ small {
 }
 
 .btn-warning {
-	border-radius: 0px;
-	height: 35px;
+	margin-top: 12px;
+	width: 310px;
+	font-weight: 600;
 }
 
 .add-input {
 	height: 35px;
-	border-radius: 0px;
 	color: rgb(15, 40, 51);
-	border: none;
-	text-align: center;
+}
+
+.input-group {
+	width: 310px;
 }
 
 .vote-btn {
+	font-weight: 600;
 	margin-top: 12px;
 	margin-bottom: 20px;
 	width: 310px;
 }
 
 @media only screen and (max-width: 500px) {
-	.vote-btn, .input-group {
+	.vote-btn, .input-group, .btn-warning {
 		width: 100% !important;
 	}
 	
 	.input-add {
-		width: 98%;
+		width: 100%;
 	}
 	
-	.btn-warning {
-		width: 28%;
-	}
-	
-	.add-input {
-		width: 70%;
-	}
 }
