@@ -5,3 +5,11 @@
   <span><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
   {{{poll.topic}}}
 </h2>
+
+<form class="options" action="" method="post">
+  {{#each poll.options}}
+    <input type="radio" name="vote" value={{option}}> {{this}}<br>
+  {{/each}}
+</form>
+
+<small>Posted By <a href="#">{{{poll.creator}}}</a></small>
