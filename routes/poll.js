@@ -3,6 +3,15 @@ const express = require('express'),
   User = require('../models/users'),
   Poll = require('../models/polls');
   
+// Find poll id via passed in req.parameter.id and send the JSON data as a 
+// response.
+router.get('/poll/:id', (req, res) => {
+  Poll.find({_id: req.params.id }, (err, result) => {
+    if(err) throw err;
+    res.send(result);
+  });
+});
+  
 // When user directs to '/createpoll', render register.handlebars.
 router.get('/createpoll', (req, res) => {
   res.render('createpoll');
@@ -13,7 +22,7 @@ router.post('/createpoll', (req, res) => {
     options = req.body.options.split(',');
     
   req.checkBody('topic', 'Topic is required').notEmpty();
-  req.checkBody('options', 'At least one option is required').notEmpty();
+  req.checkBody('options', 'Must include options').notEmpty();
   
   let errors = req.validationErrors();
   
@@ -31,9 +40,11 @@ router.post('/createpoll', (req, res) => {
     Poll.createPoll(newPoll, (err, poll) => {
       if(err) throw err;
       console.log(`New poll: ${ newPoll.topic } has been created!`);
+      
+      // When user creates a new poll, redirect to poll address.
+      res.redirect('poll/' + poll._id);
     });
     
-    res.redirect('/');
   }
   
 });
