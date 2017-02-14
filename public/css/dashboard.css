@@ -38,6 +38,10 @@ small {
 	color: rgb(206, 220, 235);
 }
 
+.options-form {
+	margin-left: 20px;
+}
+
 .btn-warning {
 	border-radius: 0px;
 	height: 35px;
@@ -45,10 +49,21 @@ small {
 
 .add-input {
 	height: 35px;
+	color: rgb(15, 40, 51);
 }
 
 .vote-btn {
 	margin-top: 12px;
 	margin-bottom: 20px;
 	width: 310px;
+}
+
+@media only screen and (max-width: 500px) {
+	.vote-btn, .input-group {
+		width: 100% !important;
+	}
+	
+	.add-input {
+		width: 73.5%;
+	}
 }
