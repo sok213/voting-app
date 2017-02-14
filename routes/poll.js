@@ -1,14 +1,22 @@
 const express = require('express'),
-  router = express.Router(),
-  User = require('../models/users'),
-  Poll = require('../models/polls');
+  app         = express();
+  router      = express.Router(),
+  User        = require('../models/users'),
+  Poll        = require('../models/polls');
   
 // Find poll id via passed in req.parameter.id and send the JSON data as a 
 // response.
 router.get('/poll/:id', (req, res) => {
   Poll.find({_id: req.params.id }, (err, result) => {
     if(err) throw err;
-    res.send(result);
+    console.log(result[0]);
+    app.use((req, res, next) => {
+      res.locals.poll = result[0];
+    });
+    
+    res.locals.poll = result[0];
+    
+    res.render('viewPoll');
   });
 });
   
