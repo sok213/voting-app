@@ -6,12 +6,19 @@
   {{{poll.topic}}}
 </h2>
 
-<form class="options" action="" method="post">
-  {{#each poll.options}}
-    <input type="radio" name="vote" value={{option}}> {{this}}<br>
-  {{/each}}
-  <button type="button" class="btn btn-warning">Add option</button>
-  <button type="submit" class="btn btn-success">Vote</button>
-</form>
+<div class="options-form">
+  <form class="options" action="" method="post">
+    <div class="form-group">
+      {{#each poll.options}}
+        <input type="radio" name="vote" value={{option}}> {{this}}<br>
+      {{/each}}
+    </div>
+    <div class="input-group">
+      <input type="text" aria-label="Text input with radio button" class="add-input">
+      <button type="button" class="btn btn-warning">Add option</button>
+    </div>
+    <button type="submit" class="btn btn-success vote-btn">Vote</button>
+  </form>
+</div>
 
 <h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>

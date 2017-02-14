@@ -35,4 +35,20 @@ small {
 
 .options {
 	font-size: 20px;
+	color: rgb(206, 220, 235);
+}
+
+.btn-warning {
+	border-radius: 0px;
+	height: 35px;
+}
+
+.add-input {
+	height: 35px;
+}
+
+.vote-btn {
+	margin-top: 12px;
+	margin-bottom: 20px;
+	width: 310px;
 }
