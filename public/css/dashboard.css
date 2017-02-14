@@ -7,8 +7,7 @@ h2 {
 }
 
 small {
-	font-size: 20px !important;
-	font-family: 'Josefin Sans', sans-serif;
+	font-size: 18px !important;
 }
 
 .btn {
@@ -32,4 +31,8 @@ small {
   -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.options {
+	font-size: 20px;
 }

@@ -10,6 +10,8 @@
   {{#each poll.options}}
     <input type="radio" name="vote" value={{option}}> {{this}}<br>
   {{/each}}
+  <button type="button" class="btn btn-warning">Add option</button>
+  <button type="submit" class="btn btn-success">Vote</button>
 </form>
 
-<small>Posted By <a href="#">{{{poll.creator}}}</a></small>
+<h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>

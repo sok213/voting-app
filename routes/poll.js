@@ -9,7 +9,6 @@ const express = require('express'),
 router.get('/poll/:id', (req, res) => {
   Poll.find({_id: req.params.id }, (err, result) => {
     if(err) throw err;
-    console.log(result[0]);
     app.use((req, res, next) => {
       res.locals.poll = result[0];
     });
