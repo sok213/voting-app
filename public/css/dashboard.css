@@ -52,6 +52,7 @@ small {
 	border-radius: 0px;
 	color: rgb(15, 40, 51);
 	border: none;
+	text-align: center;
 }
 
 .vote-btn {
@@ -65,13 +66,15 @@ small {
 		width: 100% !important;
 	}
 	
-	.add-input {
-		width: 74.2%;
+	.input-add {
+		width: 100%;
 	}
-}
-
-@media only screen and (max-width: 400px) {
+	
+	.btn-warning {
+		width: 30%;
+	}
+	
 	.add-input {
-		width: 71%;
+		width: 70%;
 	}
 }
