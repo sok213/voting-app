@@ -1,12 +1,22 @@
 <!-- link stylesheet to over-ride main style.css -->
 <link rel="stylesheet" href="/css/dashboard.css">
 
-<h2 class="page-header">
-  <span><i class="fa fa-home" aria-hidden="true"></i></span>
-  {{{capitalize user.username}}}'s Dashboard
-</h2>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 content">
+          <h2 class="page-header">
+            <span><i class="fa fa-home" aria-hidden="true"></i></span>
+            {{{capitalize user.username}}}'s Dashboard
+          </h2>
 
-<form class="" action="index.html" method="post">
-  <a href="/users/mypolls" class="btn btn-default">View my polls</a>
-  <a href="/users/createpoll" class="btn btn-primary">Create new poll</a>
-</form>
+          <form class="" action="index.html" method="post">
+            <a href="/users/mypolls" class="btn btn-default">View my polls</a>
+            <a href="/users/createpoll" class="btn btn-primary">Create new poll</a>
+          </form>
+
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

@@ -20,6 +20,10 @@ small {
   color: rgba(157, 174, 193, 0.89);
 }
 
+.fa-pie-chart {
+	color: #595032;
+}
+
 .content {
 	background-color: rgba(24, 33, 43, 0.89);
   background-image: none;
@@ -28,9 +32,19 @@ small {
 	padding-bottom: 20px;
 	border-radius: 0px;
 	opacity: 1;
+	margin: -0px 10px 10px 10px;
   -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.content-right {
+	background-color: #938A6D;
+}
+
+.header-secondary {
+	color: #595032 !important;
+	font-weight: 600;
 }
 
 .options {
@@ -40,6 +54,7 @@ small {
 
 .options-form {
 	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .btn-warning {

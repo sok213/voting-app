@@ -1,23 +1,37 @@
 <!-- link stylesheet to over-ride main style.css -->
 <link rel="stylesheet" href="/css/dashboard.css">
 
-<h2 class="page-header">
-  <span><i class="fa fa-pie-chart" aria-hidden="true"></i></span>
-  {{{poll.topic}}}
-</h2>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 content">
+          <h2 class="page-header">
+            <span></span>
+            &nbsp; {{{poll.topic}}}
+          </h2>
 
-<div class="options-form">
-  <form class="options" action="" method="post">
-    <div class="form-group">
-      {{#each poll.options}}
-        <input type="radio" name="vote" value="{{this}}"> &nbsp; {{this}}<br>
-      {{/each}}
+          <div class="options-form">
+            <form class="options" action="" method="post">
+              <div class="form-group">
+                {{#each poll.options}}
+                  <input type="radio" name="vote" value="{{{this}}}"> &nbsp; {{this}}<br>
+                {{/each}}
+              </div>
+              <div class="input-group">
+                <input type="text" aria-label="Text input with radio button" class="add-input">
+                <span class="input-add"><button type="button" class="btn btn-warning">Add option</button></span>
+              </div>
+              <button type="submit" class="btn btn-success vote-btn">Vote</button>
+            </form>
+            <h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>
+          </div>
+        </div>
+        
+        <div class="col-md-4 col-sm-12 content content-right">
+          <h2 class="page-header header-secondary"><i class="fa fa-pie-chart" aria-hidden="true"></i>Stats</h2>
+        </div>
     </div>
-    <div class="input-group">
-      <input type="text" aria-label="Text input with radio button" class="add-input">
-      <span class="input-add"><button type="button" class="btn btn-warning">Add option</button></span>
-    </div>
-    <button type="submit" class="btn btn-success vote-btn">Vote</button>
-  </form>
-  <h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>
+    <!-- /.row -->
+
 </div>
+<!-- /.container -->
