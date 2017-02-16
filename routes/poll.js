@@ -13,15 +13,14 @@ router.get('/poll/:id', (req, res) => {
     app.use((req, res, next) => {
       res.locals.poll = result[0];
     });
-    
     res.locals.poll = result[0];
-    
     res.render('viewPoll', {
       pollID: req.params.id
     });
   });
 });
 
+// When user casts a vote on a poll.
 router.post('/poll/:id', (req, res) => {
   // If user is signed in, allow user to cast a vote.
   if(req.user) {
@@ -62,6 +61,7 @@ router.get('/createpoll', (req, res) => {
   res.render('createpoll');
 });
 
+// When user creates a new poll.
 router.post('/createpoll', (req, res) => {
   let topic = req.body.topic,
     options = req.body.options.split(',').map(function(option) {
