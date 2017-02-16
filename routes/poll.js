@@ -1,4 +1,5 @@
 const express = require('express'),
+  mongoose    = require('mongoose'),
   app         = express();
   router      = express.Router(),
   User        = require('../models/users'),
@@ -15,7 +16,25 @@ router.get('/poll/:id', (req, res) => {
     
     res.locals.poll = result[0];
     
-    res.render('viewPoll');
+    res.render('viewPoll', {
+      pollID: req.params.id
+    });
+  });
+});
+
+router.post('/poll/:id', (req, res) => {
+  if(req.user) {
+    
+    //res.render('viewPoll');
+  } else {
+    console.log('User is not logged in.');
+  }
+  
+  Poll.findByIdAndUpdate({_id: req.params.id},
+    { $push: { votes: req.body.vote } }, { new: true }, (err, poll) => {
+    if(err) throw err;
+    //poll[0].votes.push(req.body.vote);
+    console.log(poll);
   });
 });
   
@@ -26,7 +45,12 @@ router.get('/createpoll', (req, res) => {
 
 router.post('/createpoll', (req, res) => {
   let topic = req.body.topic,
-    options = req.body.options.split(',');
+    options = req.body.options.split(',').map(function(option) {
+      return {
+        "option": option,
+        "votes": 0
+      };
+    });
     
   req.checkBody('topic', 'Topic is required').notEmpty();
   req.checkBody('options', 'Must include options').notEmpty();

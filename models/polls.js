@@ -10,6 +10,9 @@ const PollSchema = mongoose.Schema({
   creator: {
     type: String,
     index: true
+  },
+  voters: {
+    type: Array
   }
 });
 
@@ -17,4 +20,8 @@ const Poll = module.exports = mongoose.model('Poll', PollSchema);
 
 module.exports.createPoll = (newPoll, callback) => {
   newPoll.save(callback);
+};
+
+module.exports.updatePoll = (updatedPoll, callback) => {
+  updatePoll.save(callback);
 };

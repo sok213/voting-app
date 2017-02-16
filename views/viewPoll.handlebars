@@ -11,10 +11,10 @@
           </h2>
 
           <div class="options-form">
-            <form class="options" action="" method="post">
+            <form class="options" action="/users/poll/{{{pollID}}}" method="post">
               <div class="form-group">
                 {{#each poll.options}}
-                  <input type="radio" name="vote" value="{{{this}}}"> &nbsp; {{this}}<br>
+                  <input type="radio" name="vote" value="{{{this.option}}}"> &nbsp; {{this.option}}<br>
                 {{/each}}
               </div>
               <div class="input-group">
