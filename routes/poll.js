@@ -23,19 +23,38 @@ router.get('/poll/:id', (req, res) => {
 });
 
 router.post('/poll/:id', (req, res) => {
+  // If user is signed in, allow user to cast a vote.
   if(req.user) {
     
-    //res.render('viewPoll');
+    // Store form sumbission vote value and username.
+    let userVote = req.body.vote,
+      userName = res.locals.user.username;
+    
+    // Find poll by ID and push in object with voter username and the 
+    // option that they voted for.  
+    Poll.findByIdAndUpdate({_id: req.params.id}, 
+      { $push: { voters: { user: userName, option: userVote }}},
+      { safe: true, upsert: true, new : true },
+      (err, res) => {
+        if(err) throw err;
+        console.log('Poll updated.');
+    });
+    
+    // Retrieve poll by option name and increment the vote key value pair 
+    // by one.
+    Poll.update({'options.option': userVote}, 
+      {$inc: {'options.$.votes': 1}}, (err, res) => {
+        if(err) throw err;
+        console.log('Votes incremented.');
+      }
+    );
+    res.render('viewPoll');
   } else {
     console.log('User is not logged in.');
+    
+    res.render('viewPoll');
   }
   
-  Poll.findByIdAndUpdate({_id: req.params.id},
-    { $push: { votes: req.body.vote } }, { new: true }, (err, poll) => {
-    if(err) throw err;
-    //poll[0].votes.push(req.body.vote);
-    console.log(poll);
-  });
 });
   
 // When user directs to '/createpoll', render register.handlebars.
