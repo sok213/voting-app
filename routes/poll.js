@@ -26,8 +26,19 @@ router.post('/poll/:id', (req, res) => {
   if(req.user) {
     
     // Store form sumbission vote value and username.
-    let userVote = req.body.vote,
-      userName = res.locals.user.username;
+    let userVote       = req.body.vote,
+      userName         = res.locals.user.username,
+      additionalOption = res.body.addOption;
+    
+    // If additionalOption exists, add the new option and make it count as a
+    // vote. Else, count the chosen radio button value.
+    // NOTE: Make sure that a radio button and a provided additional option 
+    // do not go through the form.
+    if(additionalOption) {
+      
+    } else {
+      
+    }
     
     // Find poll by ID and push in object with voter username and the 
     // option that they voted for.  
@@ -54,6 +65,7 @@ router.post('/poll/:id', (req, res) => {
     res.render('viewPoll');
   }
   
+  console.log(req.body.addOption);
 });
   
 // When user directs to '/createpoll', render register.handlebars.
