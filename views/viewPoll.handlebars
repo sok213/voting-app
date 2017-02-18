@@ -14,12 +14,17 @@
             <form class="options" action="/users/poll/{{{pollID}}}" method="post">
               <div class="form-group">
                 {{#each poll.options}}
-                  <input type="radio" name="vote" value="{{{this.option}}}"> &nbsp; {{this.option}}<br>
+                  <input type="radio" name="vote" value="{{{this.option}}}" id="{{{this.option}}}" onclick="unCheck({{{this.option}}})" > &nbsp; {{this.option}}<br>
                 {{/each}}
               </div>
               {{#if error_msg}}
               <div class="error">
                 {{error_msg}}
+              </div>
+              {{/if}}
+              {{#if success_msg}}
+              <div class="success">
+                {{success_msg}}
               </div>
               {{/if}}
               <div class="input-group">

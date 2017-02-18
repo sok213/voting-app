@@ -5,7 +5,7 @@ const express = require('express'),
   User        = require('../models/users'),
   Poll        = require('../models/polls');
 
-let voteStatus = false,
+let voteStatus,
   errorMsg;
   
 // NOTE: Poll.findByIdAndUpdate methods in this file need major refactoring.
@@ -24,22 +24,26 @@ router.get('/poll/:id', (req, res) => {
       pollID: req.params.id
     });
   });
-  console.log("Error Message: ", errorMsg);
-  let userName = res.locals.user.username;
   
-  // Checks if user already voted on poll.
-  Poll.findById({_id: req.params.id}, (err, res) => {
-      if(err) throw err;
-      res.voters.filter( obj => {
-        if(obj.user == userName) { voteStatus = true; }
-      });
-  });
+  // If user is signed in.
+  if(res.locals.user) {
+    let userName = res.locals.user.username;
+    // Checks if user already voted on poll.
+    Poll.findById({_id: req.params.id}, (err, res) => {
+        if(err) throw err;
+        voteStatus = false;
+        res.voters.filter( obj => {
+          if(obj.user == userName) { voteStatus = true; }
+        });
+        
+          console.log("Vote Status: ", voteStatus);
+    });
+  }
 });
 
 // When user casts a vote on a poll.
 router.post('/poll/:id', (req, res) => {
   // If user is signed in, allow user to cast a vote.
-  console.log(req.body);
   if(req.user) {
     // Store and initial necessary variables.
     let userVote       = req.body.vote,
@@ -55,18 +59,18 @@ router.post('/poll/:id', (req, res) => {
       'and add an additional one. Please, pick one method.';
     } else if(voteStatus == true) {
       errorMsg = 'You have already voted on this poll.';
+    } else {
+      errorMsg;
     }
-      
+    console.log(errorMsg);  
     // If user already voted on the poll stay re-render poll page and send
     // back error message. Else, allow user to vote or add additional option.
     if(voteStatus === true) {
       req.flash('error_msg', errorMsg);
       res.redirect(req.params.id);
-    } else {
+    } else if(!errorMsg) {
       // If additionalOption exists, add the new option and make it count as a
       // vote. Else, count the chosen radio button value.
-      // NOTE: Make sure that a radio button and a provided additional option 
-      // do not go through the form.
       if(additionalOption) {
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
@@ -83,11 +87,13 @@ router.post('/poll/:id', (req, res) => {
         Poll.findByIdAndUpdate({_id: req.params.id}, 
           { $push: { options: { option: additionalOption, votes: 1 }}},
           { safe: true, upsert: true, new : true },
-          (err, res) => {
-            if(err) throw err;
-            console.log('Poll updated.');
-        });
-      } else {
+          (err, res) => { if(err) throw err; }
+        );
+        
+        req.flash('success_msg', 'You have voted on this poll!');
+        res.redirect(req.params.id);
+          
+      } else if(userVote){
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
@@ -106,14 +112,19 @@ router.post('/poll/:id', (req, res) => {
             console.log('Votes incremented.');
           }
         );
-        res.render('viewPoll');
+        req.flash('success_msg', 'You have voted on this poll!');
+        res.redirect(req.params.id);
+      } else {
+        // If a user submits and empty form.
+        req.flash('error_msg', 'Unable to sumbit an empty form.');
+        res.redirect(req.params.id);
       }
     }
     
   } else {
     console.log('User is not logged in.');
-    
-    res.render('viewPoll');
+    req.flash('error_msg', errorMsg);
+    res.redirect(req.params.id);
   }
 });
   
