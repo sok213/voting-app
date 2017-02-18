@@ -54,20 +54,29 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+              
+              <ul class="nav navbar-nav navbar-left">
+                <li>
+                  {{#if user}}
+                  <a>Welcome, <span style="color: rgb(214, 129, 236); font-size:17px">{{{user.username}}}</span>.</a>
+                  {{/if}}
+                </li>
+              </ul>
+              
+                <ul class="nav navbar-nav navbar-right">
                     {{#if user}}
                     <li>
-                        <a href="/">Dashboard</a>
+                        <a href="/"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="/users/logout">Log Out</a>
+                        <a href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Log Out</a>
                     </li>
                     {{else}}
                     <li>
-                        <a href="/users/login">Login</a>
+                        <a href="/users/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
                     </li>
                     <li>
-                      <a href="/users/register">Sign Up</a>
+                      <a href="/users/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Sign Up</a>
                     </li>
                     {{/if}}
                 </ul>

@@ -48,7 +48,7 @@ h2 { color: #E6F9AF !important; }
 }
 
 .error {
-	width: 200px;
+	max-width: 250px;
 	color: rgb(224, 79, 118);
 	background-color: #1c252f;
 	border-left: 10px solid rgb(194, 65, 65);
@@ -96,6 +96,11 @@ h2 { color: #E6F9AF !important; }
 	border-color: #339c66;
 }
 
+.fa {
+  margin-right: 10px;
+  color: rgba(157, 174, 193, 0.89);
+}
+
 /* Content and media queries */
 
 .content {
@@ -110,6 +115,10 @@ h2 { color: #E6F9AF !important; }
 	-webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
 	-moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
 	box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.43);
+}
+
+.status {
+  color: blue !important;
 }
 
 @media(min-width:768px) {

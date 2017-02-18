@@ -17,6 +17,11 @@
                   <input type="radio" name="vote" value="{{{this.option}}}"> &nbsp; {{this.option}}<br>
                 {{/each}}
               </div>
+              {{#if error_msg}}
+              <div class="error">
+                {{error_msg}}
+              </div>
+              {{/if}}
               <div class="input-group">
                 <!-- add new option input -->
                 <input type="text" name="addOption" placeholder="Add an additional option. (Counts as vote)" class="add-input form-control">

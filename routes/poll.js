@@ -4,6 +4,9 @@ const express = require('express'),
   router      = express.Router(),
   User        = require('../models/users'),
   Poll        = require('../models/polls');
+
+let voteStatus = false,
+  errorMsg;
   
 // NOTE: Poll.findByIdAndUpdate methods in this file need major refactoring.
 // Consists of many DRY code.
@@ -21,6 +24,16 @@ router.get('/poll/:id', (req, res) => {
       pollID: req.params.id
     });
   });
+  console.log("Error Message: ", errorMsg);
+  let userName = res.locals.user.username;
+  
+  // Checks if user already voted on poll.
+  Poll.findById({_id: req.params.id}, (err, res) => {
+      if(err) throw err;
+      res.voters.filter( obj => {
+        if(obj.user == userName) { voteStatus = true; }
+      });
+  });
 });
 
 // When user casts a vote on a poll.
@@ -28,56 +41,73 @@ router.post('/poll/:id', (req, res) => {
   // If user is signed in, allow user to cast a vote.
   console.log(req.body);
   if(req.user) {
-    
-    // Store form sumbission vote value and username.
+    // Store and initial necessary variables.
     let userVote       = req.body.vote,
       userName         = res.locals.user.username,
       additionalOption = req.body.addOption;
-    
-    // If additionalOption exists, add the new option and make it count as a
-    // vote. Else, count the chosen radio button value.
-    // NOTE: Make sure that a radio button and a provided additional option 
-    // do not go through the form.
-    if(additionalOption) {
-      // Find poll by ID and push in object with voter username and the 
-      // option that they voted for.  
-      Poll.findByIdAndUpdate({_id: req.params.id}, 
-        { $push: { voters: { user: userName, option: additionalOption }}},
-        { safe: true, upsert: true, new : true },
-        (err, res) => {
-          if(err) throw err;
-          console.log('Poll updated.');
-      });
+          
+    // Checks if user clicked an option or provided an input. If neither or
+    // both, store the appropriate error message.
+    if(!userVote && !additionalOption) {
+      errorMsg = 'Choose an option or provide an additional one.';
+    } else if(!userVote === false && !additionalOption === false) {
+      errorMsg = 'Users are not allowed to vote for an option ' + 
+      'and add an additional one. Please, pick one method.';
+    } else if(voteStatus == true) {
+      errorMsg = 'You have already voted on this poll.';
+    }
       
-      // Find poll by ID and push in new object with new additional option 
-      // and vote count set to 1.
-      Poll.findByIdAndUpdate({_id: req.params.id}, 
-        { $push: { options: { option: additionalOption, votes: 1 }}},
-        { safe: true, upsert: true, new : true },
-        (err, res) => {
-          if(err) throw err;
-          console.log('Poll updated.');
-      });
+    // If user already voted on the poll stay re-render poll page and send
+    // back error message. Else, allow user to vote or add additional option.
+    if(voteStatus === true) {
+      req.flash('error_msg', errorMsg);
+      res.redirect(req.params.id);
     } else {
-      // Find poll by ID and push in object with voter username and the 
-      // option that they voted for.  
-      Poll.findByIdAndUpdate({_id: req.params.id}, 
-        { $push: { voters: { user: userName, option: userVote }}},
-        { safe: true, upsert: true, new : true },
-        (err, res) => {
-          if(err) throw err;
-          console.log('Poll updated.');
-      });
-      
-      // Retrieve poll by option name and increment the vote key value pair 
-      // by one.
-      Poll.update({'options.option': userVote}, 
-        {$inc: {'options.$.votes': 1}}, (err, res) => {
-          if(err) throw err;
-          console.log('Votes incremented.');
-        }
-      );
-      res.render('viewPoll');
+      // If additionalOption exists, add the new option and make it count as a
+      // vote. Else, count the chosen radio button value.
+      // NOTE: Make sure that a radio button and a provided additional option 
+      // do not go through the form.
+      if(additionalOption) {
+        // Find poll by ID and push in object with voter username and the 
+        // option that they voted for.  
+        Poll.findByIdAndUpdate({_id: req.params.id}, 
+          { $push: { voters: { user: userName, option: additionalOption }}},
+          { safe: true, upsert: true, new : true },
+          (err, res) => {
+            if(err) throw err;
+            console.log('Poll updated.');
+        });
+        
+        // Find poll by ID and push in new object with new additional option 
+        // and vote count set to 1.
+        Poll.findByIdAndUpdate({_id: req.params.id}, 
+          { $push: { options: { option: additionalOption, votes: 1 }}},
+          { safe: true, upsert: true, new : true },
+          (err, res) => {
+            if(err) throw err;
+            console.log('Poll updated.');
+        });
+      } else {
+        // Find poll by ID and push in object with voter username and the 
+        // option that they voted for.  
+        Poll.findByIdAndUpdate({_id: req.params.id}, 
+          { $push: { voters: { user: userName, option: userVote }}},
+          { safe: true, upsert: true, new : true },
+          (err, res) => {
+            if(err) throw err;
+            console.log('Poll updated.');
+        });
+        
+        // Retrieve poll by option name and increment the vote key value pair 
+        // by one.
+        Poll.update({'options.option': userVote}, 
+          {$inc: {'options.$.votes': 1}}, (err, res) => {
+            if(err) throw err;
+            console.log('Votes incremented.');
+          }
+        );
+        res.render('viewPoll');
+      }
     }
     
   } else {
