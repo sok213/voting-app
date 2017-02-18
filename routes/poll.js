@@ -36,7 +36,7 @@ router.get('/poll/:id', (req, res) => {
           if(obj.user == userName) { voteStatus = true; }
         });
         
-          console.log("Vote Status: ", voteStatus);
+        console.log("Vote Status: ", voteStatus);
     });
   }
 });
@@ -60,7 +60,7 @@ router.post('/poll/:id', (req, res) => {
     } else if(voteStatus == true) {
       errorMsg = 'You have already voted on this poll.';
     } else {
-      errorMsg;
+      errorMsg = undefined;
     }
     console.log(errorMsg);  
     // If user already voted on the poll stay re-render poll page and send
@@ -123,7 +123,7 @@ router.post('/poll/:id', (req, res) => {
     
   } else {
     console.log('User is not logged in.');
-    req.flash('error_msg', errorMsg);
+    req.flash('error_msg', 'Must sign in or register to vote.');
     res.redirect(req.params.id);
   }
 });
