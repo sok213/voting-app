@@ -27,6 +27,11 @@
               <label>Option/s (separated by commas)</label>
               <input type="text" class="form-control" placeholder="Add options here. Separate multiple options using commas." name="options">
             </div>
+            <div class="form-group">
+                <label>Restrict users from adding additional options?</label> <br>
+                <input type="radio" name="restricted" value="true" id="{{{this.option}}}" > &nbsp; Yes &nbsp;
+                <input type="radio" name="restricted" value="false" checked="checked" id="{{{this.option}}}" >  &nbsp; No
+            </div>
             <a href="/" class="btn btn-default"><i class="fa fa-angle-left" aria-hidden="true"></i>Return</a>
             <button type="submit" class="btn btn-success">Create poll</button>
           </form>

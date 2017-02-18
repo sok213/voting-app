@@ -13,8 +13,9 @@
           <div class="options-form">
             <form class="options" action="/users/poll/{{{pollID}}}" method="post">
               <div class="form-group">
+                <label class="text-muted"><small>Choose one.</small></label> <br>
                 {{#each poll.options}}
-                  <input type="radio" name="vote" value="{{{this.option}}}" id="{{{this.option}}}" onclick="unCheck({{{this.option}}})" > &nbsp; {{this.option}}<br>
+                  <input type="radio" name="vote" value="{{{this.option}}}" id="{{{this.option}}}" > &nbsp; {{this.option}}<br>
                 {{/each}}
               </div>
               {{#if error_msg}}
@@ -29,6 +30,7 @@
               {{/if}}
               <div class="input-group">
                 <!-- add new option input -->
+                <label class="text-muted"><small>Or vote for an additional option.</small></label> <br>
                 <input type="text" name="addOption" placeholder="Add an additional option. (Counts as vote)" class="add-input form-control">
               </div>
               <button type="submit" class="btn btn-success vote-btn">VOTE</button>

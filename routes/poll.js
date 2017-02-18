@@ -35,7 +35,6 @@ router.get('/poll/:id', (req, res) => {
         res.voters.filter( obj => {
           if(obj.user == userName) { voteStatus = true; }
         });
-        
         console.log("Vote Status: ", voteStatus);
     });
   }
@@ -66,9 +65,11 @@ router.post('/poll/:id', (req, res) => {
     // If user already voted on the poll stay re-render poll page and send
     // back error message. Else, allow user to vote or add additional option.
     if(voteStatus === true) {
+      console.log('FUCK YOU BITCH');
       req.flash('error_msg', errorMsg);
       res.redirect(req.params.id);
     } else if(!errorMsg) {
+      console.log('testFUCKK2232');
       // If additionalOption exists, add the new option and make it count as a
       // vote. Else, count the chosen radio button value.
       if(additionalOption) {
@@ -93,7 +94,8 @@ router.post('/poll/:id', (req, res) => {
         req.flash('success_msg', 'You have voted on this poll!');
         res.redirect(req.params.id);
           
-      } else if(userVote){
+      } else if(userVote && !errorMsg){
+        console.log('test');
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
@@ -114,11 +116,11 @@ router.post('/poll/:id', (req, res) => {
         );
         req.flash('success_msg', 'You have voted on this poll!');
         res.redirect(req.params.id);
-      } else {
-        // If a user submits and empty form.
-        req.flash('error_msg', 'Unable to sumbit an empty form.');
-        res.redirect(req.params.id);
       }
+    } else {
+      // If invalid form is submitted.
+      req.flash('error_msg', errorMsg);
+      res.redirect(req.params.id);
     }
     
   } else {
@@ -156,7 +158,8 @@ router.post('/createpoll', (req, res) => {
     let newPoll = new Poll({
       topic,
       options,
-      creator: res.locals.user.username
+      creator: res.locals.user.username,
+      restricted: req.body.restricted
     });
     
     Poll.createPoll(newPoll, (err, poll) => {
