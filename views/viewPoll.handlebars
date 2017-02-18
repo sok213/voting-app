@@ -28,11 +28,15 @@
                 {{success_msg}}
               </div>
               {{/if}}
+              {{#if poll.restricted }}
+              <!-- Do nothing -->
+              {{else}}
               <div class="input-group">
                 <!-- add new option input -->
                 <label class="text-muted"><small>Or vote for an additional option.</small></label> <br>
                 <input type="text" name="addOption" placeholder="Add an additional option. (Counts as vote)" class="add-input form-control">
               </div>
+              {{/if}}
               <button type="submit" class="btn btn-success vote-btn">VOTE</button>
             </form>
             <h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>

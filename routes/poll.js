@@ -65,11 +65,9 @@ router.post('/poll/:id', (req, res) => {
     // If user already voted on the poll stay re-render poll page and send
     // back error message. Else, allow user to vote or add additional option.
     if(voteStatus === true) {
-      console.log('FUCK YOU BITCH');
       req.flash('error_msg', errorMsg);
       res.redirect(req.params.id);
     } else if(!errorMsg) {
-      console.log('testFUCKK2232');
       // If additionalOption exists, add the new option and make it count as a
       // vote. Else, count the chosen radio button value.
       if(additionalOption) {
@@ -95,7 +93,6 @@ router.post('/poll/:id', (req, res) => {
         res.redirect(req.params.id);
           
       } else if(userVote && !errorMsg){
-        console.log('test');
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
