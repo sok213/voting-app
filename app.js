@@ -11,6 +11,7 @@ const express   = require('express'),
   passport      = require('passport'),
   cookieParser  = require('cookie-parser'),
   flash         = require('connect-flash'),
+  apiController = require('./controllers/apiController'),
   port          = 3000,
   // Connect to the mLab database via the mLab URI from config.js file.
   db            = mongoose.connect(config.getDbConnectionString());
@@ -37,6 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+// Set chart.js.
+app.use('/chartjs', express.static(__dirname + '/node_modules/chart.js/src/chart.js'));
 
 // Set module folder 
 app.use('/font-awesome', express.static(__dirname + 
@@ -92,6 +95,10 @@ app.use((req, res, next) => {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users', poll);
+
+// Serve app to apiController module which will listen to any 
+// request on /api/:pollID
+apiController(app);
 
 // Start server.
 let server = app.listen(port, () => console.log('Listening on port: ', port));

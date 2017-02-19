@@ -79,6 +79,11 @@ small {
 	width: 310px;
 }
 
+.chartContainer {
+ background-color: white;
+ padding-bottom: 20px;
+}
+
 @media only screen and (max-width: 500px) {
 	.vote-btn, .input-group, .btn-warning {
 		width: 100% !important;
