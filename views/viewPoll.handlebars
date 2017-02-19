@@ -46,11 +46,12 @@
         <div class="col-md-4 col-sm-12 content content-right">
           <h2 class="page-header header-secondary"><i class="fa fa-pie-chart" aria-hidden="true"></i>Stats</h2>
           <!-- doughnut chart -->
+          <h3 class="sub-header">Total Votes: {{getLength poll.voters}}</h3>
           <div class="chartContainer">
             <canvas id="pollChart"></canvas>
           </div>
           
-          <button type="button" onclick="toggleChart()" class="btn btn-default">Toggle Chart Type</button>
+          <!--<button type="button" onclick="toggleChart()" class="btn btn-default">Toggle Chart Type</button>-->
         </div>
     </div>
     <!-- /.row -->
@@ -63,6 +64,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <!-- randomColor -->
+  <script src="/randomColor/randomColor.js"></script></script> 
   <!-- load custom javascript file. -->
   <script src="/javascripts/donutChart.js" pollID={{pollID}}></script>
 

@@ -38,8 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-// Set chart.js.
-app.use('/chartjs', express.static(__dirname + '/node_modules/chart.js/src/chart.js'));
+// Set randomColor.js.
+app.use('/randomColor', express.static(__dirname + '/node_modules/randomcolor'));
 
 // Set module folder 
 app.use('/font-awesome', express.static(__dirname + 
@@ -87,6 +87,9 @@ app.use((req, res, next) => {
   res.locals.capitalize = (title) => {
     let firstName = title.split(' ')[0];
     return firstName.split('')[0].toUpperCase() + firstName.substring(1);
+  };
+  res.locals.getLength = (voters) => {
+    return voters.length;
   };
   next();
 });
