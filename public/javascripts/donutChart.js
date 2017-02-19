@@ -3,6 +3,12 @@ var options = {};
 var pollID = document.currentScript.getAttribute('pollID'); //1
 var type = 'doughnut';
 
+// Toggle chart type from pie to doughnut button.
+function toggleChart() {
+  type == 'pie' ? type = 'doughnut' : type = 'pie';
+  renderChart(type);
+}
+
 var data = {
   labels: [],
   datasets: [{
@@ -17,10 +23,9 @@ function renderChart(type) {
     url: 'http://localhost:3000/api/' + pollID,
     type: 'GET',
     success: function(json) {
-      console.log(json[0]);
       // Set the labels for chart.
       data.labels = json[0].options.map(function(d) {
-        data.datasets[0].backgroundColor.push(randomColor());
+        data.datasets[0].backgroundColor.push(randomColor({luminosity: 'bright',}));
         return d.option;
       });
       
@@ -28,8 +33,6 @@ function renderChart(type) {
       data.datasets[0].data = json[0].options.map(function(d) {
         return d.votes;
       });
-      
-      console.log('creating chart');
       // For a doughnut chart
       var myPieChart = new Chart(ctx,{
           type: type,
@@ -40,11 +43,3 @@ function renderChart(type) {
 }
 
 renderChart(type);
-
-// Toggle chart type from pie to doughnut button.
-function toggleChart() {
-  type == 'pie' ? type = 'doughnut' : type = 'pie';
-  renderChart(type);
-}
-
-console.log('data: ', data);
