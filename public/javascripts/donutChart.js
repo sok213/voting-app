@@ -9,6 +9,7 @@ function toggleChart() {
   renderChart(type);
 }
 
+// Set the data object model for chart.
 var data = {
   labels: [],
   datasets: [{
