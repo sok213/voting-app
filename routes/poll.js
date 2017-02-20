@@ -6,7 +6,8 @@ const express = require('express'),
   Poll        = require('../models/polls');
 
 let voteStatus,
-  errorMsg;
+  errorMsg,
+  pollTopic;
   
 // NOTE: Poll.findByIdAndUpdate methods in this file need major refactoring.
 // Consists of many DRY code.
@@ -19,6 +20,7 @@ router.get('/poll/:id', (req, res) => {
     app.use((req, res, next) => {
       res.locals.poll = result[0];
     });
+    pollTopic = result[0].topic;
     res.locals.poll = result[0];
     res.render('viewPoll', {
       pollID: req.params.id
@@ -61,7 +63,7 @@ router.post('/poll/:id', (req, res) => {
     } else {
       errorMsg = undefined;
     }
-    console.log(errorMsg);  
+
     // If user already voted on the poll stay re-render poll page and send
     // back error message. Else, allow user to vote or add additional option.
     if(voteStatus === true) {
@@ -89,6 +91,18 @@ router.post('/poll/:id', (req, res) => {
           (err, res) => { if(err) throw err; }
         );
         
+        // Add poll topic and poll id to user database.
+        User.findByIdAndUpdate({_id: res.locals.user._id},
+          { $push: { pollsVoted: 
+            { 
+              pollTopic: pollTopic, 
+              pollID: req.params.id,
+              votedFor:  additionalOption
+            }
+          }},
+          (err, res) => { if(err) throw err;}
+        );
+        
         req.flash('success_msg', 'You have voted on this poll!');
         res.redirect(req.params.id);
           
@@ -102,6 +116,18 @@ router.post('/poll/:id', (req, res) => {
             if(err) throw err;
             console.log('Poll updated.');
         });
+        
+        // Add poll topic and poll id to user database.
+        User.findByIdAndUpdate({_id: res.locals.user._id},
+          { $push: { pollsVoted: 
+            { 
+              pollTopic: pollTopic, 
+              pollID: req.params.id,
+              votedFor: userVote
+            }
+          }},
+          (err, res) => { if(err) throw err;}
+        );
         
         // Retrieve poll by option name and increment the vote key value pair 
         // by one.

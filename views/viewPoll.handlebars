@@ -51,7 +51,17 @@
             <canvas id="pollChart"></canvas>
           </div>
           
-          <!--<button type="button" onclick="toggleChart()" class="btn btn-default">Toggle Chart Type</button>-->
+          <div class="button-container">
+            <!-- Twitter share button -->
+            <a class="btn btn-primary tweet-btn" 
+              href="https://twitter.com/intent/tweet?text={{{poll.topic}}}&hashtags=GVPY&url=http://localhost:3000/users/poll/{{{pollID}}}" 
+              target="_blank">
+              <i class="fa fa-twitter" aria-hidden="true"></i>Tweet #GoVoteAndPollYourself
+            </a>
+            <!-- View voters list button -->
+            <button type="button" onclick="toggleChart()" class="btn btn-default view-list-btn">View voters list</button>
+          </div>
+
         </div>
     </div>
     <!-- /.row -->

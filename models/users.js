@@ -16,6 +16,9 @@ const UserSchema = mongoose.Schema({
   },
   name: {
     type: String
+  },
+  pollsVoted: {
+    type: Array
   }
 });
 
