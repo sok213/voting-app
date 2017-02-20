@@ -5,19 +5,7 @@ var type = 'doughnut';
 var voterCount;
 var voterList;
 var toggled = false;
-var previousContent = '<h2 class="page-header header-secondary"><i class="fa fa-pie-chart" aria-hidden="true"></i>Stats</h2>' +
-          '<h3 class="sub-header">Total Votes: {{getLength poll.voters}}</h3>' +
-          '<div class="chartContainer">' +
-           '<canvas id="pollChart"></canvas>' +
-          '</div>' +
-          '<div class="button-container">' +
-            '<a class="btn btn-primary tweet-btn"' + 
-              'href="https://twitter.com/intent/tweet?text={{{poll.topic}}}&hashtags=GVPY&url=http://localhost:3000/users/poll/{{{pollID}}}"' +
-              'target="_blank">' +
-              '<i class="fa fa-twitter" aria-hidden="true"></i>Tweet #GoVoteAndPollYourself' +
-            '</a>' +
-            '<button type="button" onclick="toggleChart()" class="btn btn-default view-list-btn">View voters list</button>' +
-          '</div>';
+var previousContent = $('#stats-list').html();
 
 // Toggle chart type from pie to doughnut button.
 function toggleChart() {
@@ -31,7 +19,7 @@ function toggleChart() {
       
       '<h3 class="sub-header">Total Votes: ' + voterCount + '</h3>' +
       '<div id="list-container">' +
-        '<ul id="voters-ul"></ul>' + 
+        '<ol id="voters-ol"></ol>' + 
       '</div>' +
       '<div class="button-container">' +
         '<button type="button" onclick="toggleChart()" ' + 
@@ -39,7 +27,7 @@ function toggleChart() {
       '</div>'
     );
     voterList.forEach(function(item) {
-      $('#voters-ul').append(item);
+      $('#voters-ol').append(item);
     });
   } else {
     $('#stats-list').html(previousContent);
@@ -69,7 +57,11 @@ function renderChart(type) {
       console.log(json[0]);
       voterCount = json[0].voters.length;
       voterList = json[0].voters.map(function(d) {
-        return '<li>' + d.user + ' voted for ' + d.option + '</li>';
+        return '<li>' + 
+          '<span style="color: rgb(173, 80, 231)">' + d.user + '</span>' + 
+          ' voted for ' + 
+          '<span style="color: rgb(80, 185, 231)">' + d.option + '</span>' + 
+          '</li>';
       });
       // Set the labels for chart.
       data.labels = json[0].options.map(function(d) {

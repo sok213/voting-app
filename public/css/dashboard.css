@@ -10,6 +10,20 @@ small {
 	font-size: 18px !important;
 }
 
+#voters-ol {
+	background-color: white;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-weight: 600;
+	font-size: 18px;
+	color: rgb(109, 117, 110);
+	border-radius: 5px;
+	border: thin solid rgb(108, 112, 100);
+	-webkit-box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
+	-moz-box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
+	box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
+}
+
 .btn {
   border-radius: 2px;
   font-size: 16px;
@@ -97,6 +111,11 @@ small {
 .chartContainer {
  background-color: white;
  padding-bottom: 20px;
+ border-radius: 5px;
+ border: thin solid rgb(108, 112, 100);
+ -webkit-box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
+ -moz-box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
+ box-shadow: inset 0px 2px 4px 0px rgba(0,0,0,0.62);
 }
 
 @media only screen and (max-width: 500px) {
