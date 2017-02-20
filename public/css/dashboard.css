@@ -31,7 +31,7 @@ small {
   color: rgba(157, 174, 193, 0.89);
 }
 
-.fa-pie-chart {
+.fa-pie-chart, .fa-list-ul {
 	color: #595032;
 }
 
