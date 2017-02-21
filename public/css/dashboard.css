@@ -16,6 +16,7 @@ small {
 }
 
 #voters-ol {
+  min-height: 380px;
 	background-color: white;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -69,6 +70,7 @@ small {
 }
 
 .content-right {
+  min-height: 602px;
 	background-color: #938A6D;
 }
 
