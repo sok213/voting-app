@@ -36,3 +36,15 @@ h3 {
   min-height: 45px;
   font-size: 16px;
 }
+
+@media only screen and (max-width: 500px) {
+  .recent-item {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .recent-item {
+    font-size: 13px !important;
+  }
+}

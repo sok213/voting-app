@@ -36,3 +36,15 @@
 .btn-text {
   font-family: Century Gothic, sans-serif;
 }
+
+@media only screen and (max-width: 500px) {
+  .btn-text {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .btn-text {
+    font-size: 11px !important;
+  }
+}
