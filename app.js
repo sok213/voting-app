@@ -1,6 +1,7 @@
 // Retrieve modules.
 const express   = require('express'),
   mongoose      = require('mongoose'),
+  router        = express.Router(),
   path          = require('path'),
   bodyParser    = require('body-parser'),
   expressValid  = require('express-validator'),
@@ -101,13 +102,14 @@ app.use('/users', users);
 app.use('/users', poll);
 app.use('/profile', profile);
 
-app.get('*', (req, res) => {
-  res.render('404');
-});
-
 // Serve app to apiController module which will listen to any 
 // request on /api/:pollID
 apiController(app);
+
+// 404 error handler.
+app.get('*', function(req, res){
+  res.render('404');
+});
 
 // Start server.
 let server = app.listen(port, () => console.log('Listening on port: ', port));

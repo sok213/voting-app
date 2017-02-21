@@ -54,6 +54,7 @@ function renderChart(type) {
     url: '/api/' + pollID,
     type: 'GET',
     success: function(json) {
+      console.log(json[0]);
       voterCount = json[0].voters.length;
       voterList = json[0].voters.map(function(d) {
         return '<li>' + 

@@ -19,5 +19,6 @@ router.get('/', ensureAuthenticated, (req, res) => {
   res.render('dashboard');
 });
 
+
 // Export the router methods.
 module.exports = router;

@@ -16,17 +16,14 @@ let voteStatus,
 // Find poll id via passed in req.parameter.id and send the JSON data as a 
 // response.
 router.get('/poll/:id', (req, res) => {
+  console.log(req.params.id);
   Poll.find({_id: req.params.id }, (err, result) => {
-    if(err) throw err;
-    console.log(!result[0]);
-    // If no result found for provided poll ID.
-    if(!result[0]) {
+    if(err || !result[0]){
       res.render('pollNotFound', {
         pollId: req.params.id
       });
-    }
-    
-    else {
+    } else {
+      console.log(!result[0]);
       User.find({username: result[0].creator}, (err, userResult) => {
         creatorId = userResult[0]._id;
         app.use((req, res, next) => {
