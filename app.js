@@ -13,7 +13,7 @@ const express   = require('express'),
   cookieParser  = require('cookie-parser'),
   flash         = require('connect-flash'),
   apiController = require('./controllers/apiController'),
-  port          = 3000,
+  port          = process.env.PORT || 3000,
   // Connect to the mLab database via the mLab URI from config.js file.
   db            = mongoose.connect(config.getDbConnectionString());
 
