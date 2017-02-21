@@ -21,7 +21,8 @@ const express   = require('express'),
 const routes = require('./routes/index'),
   users      = require('./routes/users'),
   poll       = require('./routes/poll'),
-  profile    = require('./routes/profile');
+  profile    = require('./routes/profile'),
+  myPolls    = require('./routes/mypolls');
 
 // Set views and view engine to HandleBars.
 app.set('views', path.join(__dirname, 'views'));
@@ -100,6 +101,7 @@ app.use((req, res, next) => {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users', poll);
+app.use('/users', myPolls);
 app.use('/profile', profile);
 
 // Serve app to apiController module which will listen to any 

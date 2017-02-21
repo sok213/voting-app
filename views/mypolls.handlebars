@@ -1,0 +1,39 @@
+<!-- link stylesheet to over-ride main style.css -->
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/manage.css">
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 content">
+          <h2 class="page-header">
+            <span><i class="fa fa-cogs" aria-hidden="true"></i></span>
+            Choose Polls To Delete
+          </h2>
+          {{#if success_msg}}
+            <div class="success">
+              {{success_msg}}
+            </div>
+          {{/if}}
+          <form class="polls-container col-md-6 col-sm-12" action="/users/mypolls/delete" method="post">
+            {{#if pollsCreated}}
+            {{#each pollsCreated}}
+              <div class="myPoll">
+                <button name="deleted" type="submit" value={{{this.id}}} class="btn btn-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                {{this.topic}}
+              </div>
+            {{/each}}
+            {{else}}
+            <div class="mypoll">
+              <span class="none">You have no polls to delete.</span>
+            </div>
+            {{/if}}
+          </form>
+          <div class="container col-md-12 col-sm-12">
+            <a href="/" class="btn btn-default"><i class="fa fa-angle-left" aria-hidden="true"></i>return</a>
+          </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

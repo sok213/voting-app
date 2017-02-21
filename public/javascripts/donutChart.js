@@ -22,7 +22,8 @@ function toggleChart() {
       '</div>' +
       '<div class="button-container">' +
         '<button type="button" onclick="toggleChart()" ' + 
-        'class="btn btn-default view-list-btn">Return</button>' +
+        'class="btn btn-default view-list-btn">' + 
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>Return</button>' +
       '</div>'
     );
     voterList.forEach(function(item) {
