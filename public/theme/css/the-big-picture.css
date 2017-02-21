@@ -129,4 +129,12 @@ h2 { color: #E6F9AF !important; }
     .navbar-fixed-botom .navbar-brand {
       padding: 15px 0;
     }
+		
+	
+}
+
+@media only screen and (max-width: 500px) {
+	.full {
+		background-size: auto 100%;
+	}
 }
