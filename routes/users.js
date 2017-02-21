@@ -52,37 +52,45 @@ router.post('/register', (req, res) => {
   // variable errors.
   let errors = req.validationErrors();
   
-  // If errors conists of any errors, render register.handlebars passing in
-  // the values from errors as a global variable. Else, create a new user
-  // using the form values passed in by the user. 
-  if(errors) {
-    res.render('register', {
-      errors: errors
-    });
-    return;
-  }
-  
-  // Creates a new user using the mongoose User schema defined in 
-  // './models/users.js'.
-  let newUser = new User({
-    name: name,
-    email: email,
-    username: username,
-    password: password
-  });
-  
-  // Invokes createUser method from './models/users.js' which saves
-  // the newly created user to the mLab database.
-  User.createUser(newUser, (err, user) => {
+  // Check if user name already exists.
+  User.find({username: username}, (err, result) => {
     if(err) throw err;
-    console.log("New user registered!");
+    if(result[0]) {
+      errors = [{msg: 'Username already exists!'}];
+    }
+    
+    // If errors conists of any errors, render register.handlebars passing in
+    // the values from errors as a global variable. Else, create a new user
+    // using the form values passed in by the user. 
+    if(errors) {
+      res.render('register', {
+        errors: errors
+      });
+      return;
+    }
+    
+    // Creates a new user using the mongoose User schema defined in 
+    // './models/users.js'.
+    let newUser = new User({
+      name: name,
+      email: email,
+      username: username,
+      password: password
+    });
+    
+    // Invokes createUser method from './models/users.js' which saves
+    // the newly created user to the mLab database.
+    User.createUser(newUser, (err, user) => {
+      if(err) throw err;
+      console.log("New user registered!");
+    });
+    
+    // After new user is created and saved to database, show a success 
+    // message via flash() method.
+    req.flash('success_msg', 'You are registered and can now login.');
+    // redirect to login.handlebars.
+    res.redirect('/users/login');
   });
-  
-  // After new user is created and saved to database, show a success 
-  // message via flash() method.
-  req.flash('success_msg', 'You are registered and can now login.');
-  // redirect to login.handlebars.
-  res.redirect('/users/login');
 });
 
 // Configure the Passport LocalStrategy for username/password authentication.
