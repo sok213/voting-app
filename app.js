@@ -19,7 +19,8 @@ const express   = require('express'),
 // Retrieve routes.
 const routes = require('./routes/index'),
   users      = require('./routes/users'),
-  poll       = require('./routes/poll');
+  poll       = require('./routes/poll'),
+  profile    = require('./routes/profile');
 
 // Set views and view engine to HandleBars.
 app.set('views', path.join(__dirname, 'views'));
@@ -98,6 +99,7 @@ app.use((req, res, next) => {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/users', poll);
+app.use('/profile', profile);
 
 // Serve app to apiController module which will listen to any 
 // request on /api/:pollID

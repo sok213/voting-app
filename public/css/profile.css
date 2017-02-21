@@ -1,0 +1,38 @@
+.page-header {
+  border-bottom: none;
+  margin-bottom: -5px;
+}
+
+.page-header, h4 {
+  margin-left: 20px;
+}
+
+.right {
+  float: right;
+}
+
+.content-profile {
+  background-color: #938A6D;
+  color: #f1dea3;
+}
+
+.pollsCreated, .pollsVotedOn {
+  font-size: 18px;
+  width: 90%;
+}
+
+.poll-row {
+  padding-left: 10px;
+  border-left: 7px solid #ACBEA3;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.poll-btn {
+  width: 100%;
+  text-align: left;
+}
+
+.btn-text {
+  font-family: Century Gothic, sans-serif;
+}

@@ -1,0 +1,52 @@
+<!-- link stylesheet to over-ride main style.css -->
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/profile.css">
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 content">
+          <h2 class="page-header">
+            <span><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+            {{{userName}}}'s Profile 
+          </h2>
+          <h4 class="text-muted"><small>{{{realName}}}</small></h4>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12 content content-profile">
+        <div class="col-md-6 col-sm-12">
+          <h3>Polls Created</h3>
+          <div class="pollsCreated">
+            {{#each pollsCreated}}
+            <div class="row poll-row">
+              <button class="btn btn-default poll-btn">
+                <span class="btn-text">
+                  <span style="color: rgb(59, 203, 126); font-weight: 600">Q: </span> {{this.title}}
+                </span>
+              </button>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-sm-12">
+          <h3>Polls Voted On</h3>
+          <div class="pollsVotedOn">
+            {{#each pollsVoted}}
+              <div class="row poll-row">
+                <button class="btn btn-default poll-btn">
+                  <span class="btn-text">
+                    <span style="color: rgb(59, 203, 126); font-weight: 600">Q: </span> {{this.pollTopic}} <br>
+                    <span style="color: rgb(161, 106, 180); font-weight: 600">A: </span> {{this.votedFor}}
+                  </span>
+                </button>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- /.container -->
