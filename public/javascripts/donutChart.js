@@ -51,16 +51,16 @@ var data = {
 function renderChart(type) {
   $.ajax({
     async: true,
-    url: 'http://localhost:3000/api/' + pollID,
+    url: '/api/' + pollID,
     type: 'GET',
     success: function(json) {
-      console.log(json[0]);
       voterCount = json[0].voters.length;
       voterList = json[0].voters.map(function(d) {
         return '<li>' + 
-          '<span style="color: rgb(173, 80, 231)">' + d.user + '</span>' + 
+          '<a href="/profile/' + d.userId + '">' +
+          '<span style="color: rgb(173, 80, 231)">' + d.user + '</span></a>' + 
           ' voted for ' + 
-          '<span style="color: rgb(80, 185, 231)">' + d.option + '</span>' + 
+          '<a href="#"><span style="color: rgb(80, 185, 231)">' + d.option + '</span></a>' + 
           '</li>';
       });
       // Set the labels for chart.

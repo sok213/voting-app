@@ -7,7 +7,8 @@ const express = require('express'),
 
 let voteStatus,
   errorMsg,
-  pollTopic;
+  pollTopic,
+  creatorId;
   
 // NOTE: Poll.findByIdAndUpdate methods in this file need major refactoring.
 // Consists of many DRY code.
@@ -17,39 +18,55 @@ let voteStatus,
 router.get('/poll/:id', (req, res) => {
   Poll.find({_id: req.params.id }, (err, result) => {
     if(err) throw err;
-    app.use((req, res, next) => {
-      res.locals.poll = result[0];
-    });
-    pollTopic = result[0].topic;
-    res.locals.poll = result[0];
-    res.render('viewPoll', {
-      pollID: req.params.id
-    });
-  });
-  
-  // If user is signed in.
-  if(res.locals.user) {
-    let userName = res.locals.user.username;
-    // Checks if user already voted on poll.
-    Poll.findById({_id: req.params.id}, (err, res) => {
-        if(err) throw err;
-        voteStatus = false;
-        res.voters.filter( obj => {
-          if(obj.user == userName) { voteStatus = true; }
+    console.log(!result[0]);
+    // If no result found for provided poll ID.
+    if(!result[0]) {
+      res.render('pollNotFound', {
+        pollId: req.params.id
+      });
+    }
+    
+    else {
+      User.find({username: result[0].creator}, (err, userResult) => {
+        creatorId = userResult[0]._id;
+        app.use((req, res, next) => {
+          res.locals.poll = result[0];
         });
-        console.log("Vote Status: ", voteStatus);
-    });
-  }
+        pollTopic = result[0].topic;
+        res.locals.poll = result[0];
+        res.render('viewPoll', {
+          pollID: req.params.id,
+          creatorId
+        });
+      });
+      
+      // If user is signed in.
+      if(res.locals.user) {
+        let userName = res.locals.user.username;
+        // Checks if user already voted on poll.
+        Poll.findById({_id: req.params.id}, (err, res) => {
+            if(err) throw err;
+            voteStatus = false;
+            res.voters.filter( obj => {
+              if(obj.user == userName) { voteStatus = true; }
+            });
+            console.log("Vote Status: ", voteStatus);
+        });
+      }
+    }
+  });
 });
 
 // When user casts a vote on a poll.
 router.post('/poll/:id', (req, res) => {
   // If user is signed in, allow user to cast a vote.
   if(req.user) {
+    console.log(req.user);
     // Store and initial necessary variables.
     let userVote       = req.body.vote,
       userName         = res.locals.user.username,
-      additionalOption = req.body.addOption;
+      additionalOption = req.body.addOption,
+      userId           = req.user._id;
           
     // Checks if user clicked an option or provided an input. If neither or
     // both, store the appropriate error message.
@@ -76,7 +93,11 @@ router.post('/poll/:id', (req, res) => {
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
-          { $push: { voters: { user: userName, option: additionalOption }}},
+          { $push: { voters: { 
+              user: userName, 
+              option: additionalOption,
+              userId
+           }}},
           { safe: true, upsert: true, new : true },
           (err, res) => {
             if(err) throw err;
@@ -86,7 +107,7 @@ router.post('/poll/:id', (req, res) => {
         // Find poll by ID and push in new object with new additional option 
         // and vote count set to 1.
         Poll.findByIdAndUpdate({_id: req.params.id}, 
-          { $push: { options: { option: additionalOption, votes: 1 }}},
+          { $push: { options: { option: additionalOption, votes: 1, userId}}},
           { safe: true, upsert: true, new : true },
           (err, res) => { if(err) throw err; }
         );
@@ -110,7 +131,7 @@ router.post('/poll/:id', (req, res) => {
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
-          { $push: { voters: { user: userName, option: userVote }}},
+          { $push: { voters: { user: userName, option: userVote, userId}}},
           { safe: true, upsert: true, new : true },
           (err, res) => {
             if(err) throw err;

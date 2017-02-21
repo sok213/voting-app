@@ -101,6 +101,10 @@ app.use('/users', users);
 app.use('/users', poll);
 app.use('/profile', profile);
 
+app.get('*', (req, res) => {
+  res.render('404');
+});
+
 // Serve app to apiController module which will listen to any 
 // request on /api/:pollID
 apiController(app);

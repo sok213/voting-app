@@ -39,7 +39,7 @@
               {{/if}}
               <button type="submit" class="btn btn-success vote-btn">VOTE</button>
             </form>
-            <h4><small>Posted By <a href="#">{{{poll.creator}}}</a></small></h4>
+            <h4><small>Posted By <a href="/profile/{{{creatorId}}}">{{{poll.creator}}}</a></small></h4>
           </div>
         </div>
         
@@ -56,7 +56,7 @@
             <a class="btn btn-primary tweet-btn" 
               href="https://twitter.com/intent/tweet?text={{{poll.topic}}}&hashtags=GVPY&url=http://localhost:3000/users/poll/{{{pollID}}}" 
               target="_blank">
-              <i class="fa fa-twitter" aria-hidden="true"></i>Tweet #GoVoteAndPollYourself
+              <i class="fa fa-twitter" aria-hidden="true"></i>Tweet #GVPY
             </a>
             <!-- View voters list button -->
             <button type="button" onclick="toggleChart()" class="btn btn-default view-list-btn">View voters list</button>

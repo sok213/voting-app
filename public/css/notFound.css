@@ -1,0 +1,22 @@
+html, body, .full {
+  background-image: none;
+  text-align: center;
+}
+
+h1 {
+  color: rgb(99, 108, 99) !important;
+  font-size: 25px;
+  font-family: ‘Arial Black’, Gadget, sans-serif;
+}
+
+.fa {
+  margin-bottom: 10px;
+}
+
+.fa-exclamation-triangle {
+  color: rgb(226, 166, 96);
+}
+
+.return-btn {
+  margin-top: 40px;
+}

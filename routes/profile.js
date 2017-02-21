@@ -24,7 +24,7 @@ router.get('/:userId', (req, res) => {
       pollsCreated = result2.map( d => {
         return { pollsCreatedId: d._id, title: d.topic};
       });
-      console.log(pollsCreated);
+      console.log(pollsVoted);
       res.render('profile', {
         userName,
         realName,

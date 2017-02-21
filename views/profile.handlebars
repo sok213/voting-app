@@ -21,11 +21,11 @@
           <div class="pollsCreated">
             {{#each pollsCreated}}
             <div class="row poll-row">
-              <button class="btn btn-default poll-btn">
+              <a class="btn btn-default poll-btn" href="/users/poll/{{{this.pollsCreatedId}}}">
                 <span class="btn-text">
                   <span style="color: rgb(59, 203, 126); font-weight: 600">Q: </span> {{this.title}}
                 </span>
-              </button>
+              </a>
             </div>
             {{/each}}
           </div>
@@ -36,12 +36,12 @@
           <div class="pollsVotedOn">
             {{#each pollsVoted}}
               <div class="row poll-row">
-                <button class="btn btn-default poll-btn">
+                <a class="btn btn-default poll-btn" href="/users/poll/{{{this.pollID}}}">
                   <span class="btn-text">
                     <span style="color: rgb(59, 203, 126); font-weight: 600">Q: </span> {{this.pollTopic}} <br>
                     <span style="color: rgb(161, 106, 180); font-weight: 600">A: </span> {{this.votedFor}}
                   </span>
-                </button>
+                </a>
               </div>
             {{/each}}
           </div>
