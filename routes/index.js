@@ -25,13 +25,17 @@ function ensureNotAuth(req, res, next) {
 // ensureAuthenticated,  if ensureAuthenticated invokes the next() method,
 // render dashboard.handlebars.
 router.get('/', ensureAuthenticated, (req, res) => {
-  res.render('dashboard');
+  let findRecent10 = Poll.find({}).sort('-date').limit(10);
+  findRecent10.exec((err, polls) => {
+    res.render('dashboard', {
+      recentPolls: polls
+    });
+  });
 });
 
 router.get('/users/login', ensureNotAuth, (req, res) => {
   let findRecent10 = Poll.find({}).sort('-date').limit(10);
   findRecent10.exec((err, polls) => {
-    console.log(polls)
     res.render('login', {
       recentPolls: polls
     });
