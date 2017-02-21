@@ -114,4 +114,4 @@ app.get('*', function(req, res){
 });
 
 // Start server.
-let server = app.listen(port, () => console.log('Listening on port: ', port));
+app.listen(port, () => console.log('Listening on port: ', port));
