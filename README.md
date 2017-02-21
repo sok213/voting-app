@@ -1,8 +1,6 @@
 # GoVote&PollYourself
 
-A social network voting application.
-
-    https://img-srch-abstraction.herokuapp.com/api/latest
+A social network voting application. Create, share, and vote on polls.
 
 ## How to Run on Local Machine
 
