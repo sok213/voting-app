@@ -200,7 +200,8 @@ router.post('/createpoll', (req, res) => {
       topic,
       options,
       creator: res.locals.user.username,
-      restricted: req.body.restricted
+      restricted: req.body.restricted,
+      date: new Date()
     });
     
     Poll.createPoll(newPoll, (err, poll) => {

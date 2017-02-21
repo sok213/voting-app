@@ -16,6 +16,9 @@ const PollSchema = mongoose.Schema({
   },
   restricted: {
     type: Boolean
+  },
+  date: {
+    type: Date
   }
 });
 

@@ -1,0 +1,37 @@
+.explore {
+  text-align: center;
+  background-color: #f59d54;
+  border-radius: 10px 10px 0px 0px;
+  border: thin solid #8a572d;
+  margin-top: 20px;
+  height: 60px;
+}
+
+h3 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 35px;
+  font-weight: 600;
+  color: #FFFFC7;
+}
+
+.fa-paper-plane {
+  color: #FFFFC7;
+  margin-right: 30px;
+}
+
+.page-header-secondary {
+  margin-top: -10px;
+}
+
+.polls-container {
+  text-align: left;
+}
+
+.recent-item {
+  opacity: 0.94;
+  border-radius: 0px;
+  width: 100%;
+  text-align: left;
+  height: 45px;
+  font-size: 20px;
+}
