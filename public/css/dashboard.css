@@ -1,4 +1,9 @@
-.full { background: url('/images/ghost-pattern.png'); }
+.full { background: url('/images/ghost-pattern.png') !important; }
+
+.full:before {
+  background: url('/images/ghost-pattern.png') no-repeat center center;
+}
+  
 
 h2 {
 	font-family: 'Amatic SC', cursive;
@@ -126,6 +131,12 @@ small {
 	.input-add {
 		width: 100%;
 	}
+}
+
+@media only screen and (max-width: 400px) {
+	a {
+    font-size: 13px !important;
+  }
 }
 
 @media only screen and (min-width: 990px) {
