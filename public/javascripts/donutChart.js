@@ -9,7 +9,6 @@ var previousContent = $('#stats-list').html();
 
 // Toggle chart type from pie to doughnut button.
 function toggleChart() {
-  console.log(toggled);
   if(toggled === false) {
     $('#stats-list').html(
       '<h2 class="page-header header-secondary">' + 
@@ -61,7 +60,7 @@ function renderChart(type) {
           '<a href="/profile/' + d.userId + '">' +
           '<span style="color: rgb(173, 80, 231)">' + d.user + '</span></a>' + 
           ' voted for ' + 
-          '<a href="#"><span style="color: rgb(80, 185, 231)">' + d.option + '</span></a>' + 
+          '<span style="color: rgb(80, 185, 231)">' + d.option + '</span>' + 
           '</li>';
       });
       // Set the labels for chart.

@@ -12,7 +12,10 @@ router.get('/:userId', (req, res) => {
     pollsCreated;
   // Find user information to be placed in the html page.
   User.find({_id: req.params.userId}, (err, result) => {
-    if(err) throw err;
+    if(err) {
+      res.render('404');
+      return;
+    };
     // Set user information to variables.
     userName = result[0].username;
     realName = result[0].name;

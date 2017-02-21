@@ -59,30 +59,30 @@ router.post('/register', (req, res) => {
     res.render('register', {
       errors: errors
     });
-  } else {
-    
-    // Creates a new user using the mongoose User schema defined in 
-    // './models/users.js'.
-    let newUser = new User({
-      name: name,
-      email: email,
-      username: username,
-      password: password
-    });
-    
-    // Invokes createUser method from './models/users.js' which saves
-    // the newly created user to the mLab database.
-    User.createUser(newUser, (err, user) => {
-      if(err) throw err;
-      console.log("New user registered!");
-    });
-    
-    // After new user is created and saved to database, show a success 
-    // message via flash() method.
-    req.flash('success_msg', 'You are registered and can now login.');
-    // redirect to login.handlebars.
-    res.redirect('/users/login');
+    return;
   }
+  
+  // Creates a new user using the mongoose User schema defined in 
+  // './models/users.js'.
+  let newUser = new User({
+    name: name,
+    email: email,
+    username: username,
+    password: password
+  });
+  
+  // Invokes createUser method from './models/users.js' which saves
+  // the newly created user to the mLab database.
+  User.createUser(newUser, (err, user) => {
+    if(err) throw err;
+    console.log("New user registered!");
+  });
+  
+  // After new user is created and saved to database, show a success 
+  // message via flash() method.
+  req.flash('success_msg', 'You are registered and can now login.');
+  // redirect to login.handlebars.
+  res.redirect('/users/login');
 });
 
 // Configure the Passport LocalStrategy for username/password authentication.
