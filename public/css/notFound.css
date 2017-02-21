@@ -1,6 +1,12 @@
 html, body, .full {
-  background-image: none;
+  background-image: none !important;
+  background: none !important;
   text-align: center;
+}
+
+.full:before {
+  background-image: none !important;
+  background: none !important;
 }
 
 h1 {
