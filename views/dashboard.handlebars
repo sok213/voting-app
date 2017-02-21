@@ -28,7 +28,8 @@
             <div class="polls-container">
               {{#each recentPolls}}
                 <a href="/users/poll/{{this._id}}" class="btn btn-default recent-item">
-                  <span style="color: rgb(55, 181, 71)">Q: </span> {{this.topic}} <span style="color: rgb(120, 73, 172); float: right"><small>Posted by {{this.creator}}</small></span>
+                  <span style="color: rgb(55, 181, 71)">Q: </span> {{this.topic}} <br>
+                  <span style="color: rgb(120, 73, 172); float: left"><small>Posted by {{this.creator}}</small></span>
                 </a> <br>
               {{/each}}
             </div>

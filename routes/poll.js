@@ -16,14 +16,12 @@ let voteStatus,
 // Find poll id via passed in req.parameter.id and send the JSON data as a 
 // response.
 router.get('/poll/:id', (req, res) => {
-  console.log(req.params.id);
   Poll.find({_id: req.params.id }, (err, result) => {
     if(err || !result[0]){
       res.render('pollNotFound', {
         pollId: req.params.id
       });
     } else {
-      console.log(!result[0]);
       User.find({username: result[0].creator}, (err, userResult) => {
         creatorId = userResult[0]._id;
         app.use((req, res, next) => {
@@ -58,7 +56,6 @@ router.get('/poll/:id', (req, res) => {
 router.post('/poll/:id', (req, res) => {
   // If user is signed in, allow user to cast a vote.
   if(req.user) {
-    console.log(req.user);
     // Store and initial necessary variables.
     let userVote       = req.body.vote,
       userName         = res.locals.user.username,
@@ -93,7 +90,7 @@ router.post('/poll/:id', (req, res) => {
           { $push: { voters: { 
               user: userName, 
               option: additionalOption,
-              userId
+              userId: userId
            }}},
           { safe: true, upsert: true, new : true },
           (err, res) => {
@@ -104,7 +101,7 @@ router.post('/poll/:id', (req, res) => {
         // Find poll by ID and push in new object with new additional option 
         // and vote count set to 1.
         Poll.findByIdAndUpdate({_id: req.params.id}, 
-          { $push: { options: { option: additionalOption, votes: 1, userId}}},
+          { $push: { options: { option: additionalOption, votes: 1, userId: userId}}},
           { safe: true, upsert: true, new : true },
           (err, res) => { if(err) throw err; }
         );
@@ -128,7 +125,7 @@ router.post('/poll/:id', (req, res) => {
         // Find poll by ID and push in object with voter username and the 
         // option that they voted for.  
         Poll.findByIdAndUpdate({_id: req.params.id}, 
-          { $push: { voters: { user: userName, option: userVote, userId}}},
+          { $push: { voters: { user: userName, option: userVote, userId: userId}}},
           { safe: true, upsert: true, new : true },
           (err, res) => {
             if(err) throw err;
@@ -149,7 +146,7 @@ router.post('/poll/:id', (req, res) => {
         
         // Retrieve poll by option name and increment the vote key value pair 
         // by one.
-        Poll.update({'options.option': userVote}, 
+        Poll.update({_id: req.params.id, 'options.option': userVote}, 
           {$inc: {'options.$.votes': 1}}, (err, res) => {
             if(err) throw err;
             console.log('Votes incremented.');

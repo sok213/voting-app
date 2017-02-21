@@ -15,7 +15,7 @@ function ensureAuthenticated(req, res, next) {
 // Route for users to view created polls.
 router.get('/mypolls', ensureAuthenticated,(req, res) => {
   let pollsCreated = [];
-  Poll.find({creator: res.locals.user.name}, (err, result) => {
+  Poll.find({creator: res.locals.user.username}, (err, result) => {
     if(err) throw err;
     pollsCreated = result.map( d => {
       return {
@@ -31,7 +31,6 @@ router.get('/mypolls', ensureAuthenticated,(req, res) => {
 
 // Route for users send a delete request for a poll.
 router.post('/mypolls/delete', (req, res) => {
-  console.log(req.body.deleted);
   Poll.remove({_id: req.body.deleted}, (err) => {
     if(err) throw err;
     req.flash('success_msg', 'Poll has been deleted');

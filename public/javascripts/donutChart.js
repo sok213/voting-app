@@ -76,6 +76,8 @@ function renderChart(type) {
       data.datasets[0].data = json[0].options.map(function(d) {
         return d.votes;
       });
+      
+      console.log(data);
       // For a doughnut chart
       var myPieChart = new Chart(ctx,{
           type: type,
