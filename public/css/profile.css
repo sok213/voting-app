@@ -18,23 +18,41 @@
 
 .pollsCreated, .pollsVotedOn {
   font-size: 18px;
-  width: 90%;
 }
 
 .poll-row {
-  padding-left: 10px;
-  border-left: 7px solid #ACBEA3;
-  margin-left: 5px;
+  margin-left: 3px;
   margin-bottom: 5px;
 }
 
 .poll-btn {
+  border-radius: 5px;
   width: 100%;
   text-align: left;
+  border: thin solid rgb(44, 54, 47);
+  padding: 7px;
+  background-color: white;
+  color: rgb(37, 40, 36);
+  transition: 0.1s;
 }
 
-.btn-text {
+.poll-btn:hover {
+  border-color: rgb(255, 107, 0);
+  color:rgb(48, 116, 172);
+  background-color: rgb(249, 249, 249);
+}
+
+a { 
+  text-decoration: none !important;
+}
+
+.pollsContainer {
   font-family: Century Gothic, sans-serif;
+  width: 100%;
+}
+
+.breakword {
+  word-wrap: break-word;
 }
 
 @media only screen and (max-width: 500px) {
@@ -45,6 +63,10 @@
 
 @media only screen and (max-width: 400px) {
   .btn-text {
-    font-size: 11px !important;
+    font-size: 13px !important;
+  }
+  
+  .poll-row {
+      margin-left: 0px;
   }
 }
